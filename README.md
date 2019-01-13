@@ -3,7 +3,7 @@ A simple script to set the backlight.
 
 ## i3 setup
 
-1. Add this script to your pathl
+1. Add this script to your path
 2. Add the following to your .config/i3/config:
 
   set $brightness_step 100
