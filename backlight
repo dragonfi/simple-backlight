@@ -2,7 +2,12 @@
 set -e
 file="/sys/class/backlight/intel_backlight/brightness"
 current=$(cat "$file")
+
+max_file="/sys/class/backlight/intel_backlight/max_brightness"
+max=$(cat "$max_file")
+
 new="$current"
+
 if [ "$1" = "-inc" ]
 then
     new=$(( current + $2 ))
@@ -11,4 +16,17 @@ if [ "$1" = "-dec" ]
 then
     new=$(( current - $2 ))
 fi
+
+if (( $new > $max ))
+then
+    new=$max
+fi
+
+if (( $new < 1 ))
+then
+    new=1
+fi
+
 echo "$new" | tee "$file"
+echo "$current -> $new"
+~                          
